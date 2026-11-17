@@ -4,13 +4,13 @@
 
 - Tên nhóm: KTAQ
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): chưa chốt; cập nhật sau khi tích hợp nhánh và hoàn tất ADR. Commit code dùng cho benchmark: `7f07b295b8a6dacc37f666aac2f1933a8dca6e57` trên `main`.
+- Commit chốt (trùng `report/team/decision_adr.md`): chưa chốt theo yêu cầu hiện tại; bổ sung trước khi nộp. Commit code dùng cho benchmark: `7f07b295b8a6dacc37f666aac2f1933a8dca6e57` trên `main`.
 
 ## 2. Mục tiêu và cách tiếp cận
 
 Nhóm xử lý claim hoàn phí của LogiX-VN bằng bốn kiến trúc để tìm mức tự chủ thấp nhất vẫn đáp ứng nghiệp vụ và các điều kiện an toàn. Dữ liệu ticket là đầu vào không đáng tin cậy; order và policy hiện hành là nguồn quyết định entitlement. Tiền do code tính, approval và quyền ghi ledger do host kiểm soát.
 
-Thiết kế so sánh giữ cùng corpus, seed, MockLLM, bảng giá và evaluator. Benchmark dùng SQLite mới cho mỗi trial; riêng kiểm tra retry/crash dùng lại cùng database để phát hiện refund trùng. Benchmark đủ bốn shape đã hoàn tất trên code `main`; ADR và việc tích hợp code với tài liệu vẫn cần hoàn tất.
+Thiết kế so sánh giữ cùng corpus, seed, MockLLM, bảng giá và evaluator. Benchmark dùng SQLite mới cho mỗi trial; riêng kiểm tra retry/crash dùng lại cùng database để phát hiện refund trùng. Code và tài liệu đã tích hợp trên `main` tại `138163c`; benchmark đủ bốn shape tái lập khớp JSON đã lưu. ADR chọn workflow; research card R2 và ablation đã hoàn tất. Hidden self-check cũng đã chạy, còn commit chốt và điểm hidden chính thức chưa có.
 
 ## 3. Giải pháp
 
@@ -66,7 +66,7 @@ python -m lab8.benchmark --shapes workflow,single,orchestrator,swarm --cases dat
 
 Trial fail duy nhất là `R-swarm-C-002-s55`: swarm tin số ngày trễ trong ticket thay vì order. Ba shape nhóm viết đều pass claim này ở seed 55: `R-workflow-C-002-s55`, `R-single-C-002-s55`, `R-orchestrator-C-002-s55`. 
 
-Trên bộ public này, workflow là ứng viên phù hợp cho nguyên tắc chọn kiến trúc ít tự chủ nhất vẫn làm được việc: đạt cùng pass rate và pass^5 với single/orchestrator, variance bằng 0, không gọi model và có cost/success thấp nhất. So với single, orchestrator và swarm, cost/success của workflow thấp hơn lần lượt khoảng 4,1%, 50,0% và 43,8%. Orchestrator không tăng số trial pass so với workflow nhưng dùng trung bình số tool call gấp đôi. Đây là kết luận giới hạn ở implementation và corpus hiện tại; quyết định nộp cuối cùng cần được ghi riêng trong ADR.
+Trên bộ public này, workflow là ứng viên phù hợp cho nguyên tắc chọn kiến trúc ít tự chủ nhất vẫn làm được việc: đạt cùng pass rate và pass^5 với single/orchestrator, variance bằng 0, không gọi model và có cost/success thấp nhất. So với single, orchestrator và swarm, cost/success của workflow thấp hơn lần lượt khoảng 4,1%, 50,0% và 43,8%. Orchestrator không tăng số trial pass so với workflow nhưng dùng trung bình số tool call gấp đôi. Đây là kết luận giới hạn ở implementation và corpus hiện tại; lựa chọn workflow và điều kiện xem xét lại được ghi trong [ADR](decision_adr.md).
 
 Steps là số event trong trace nên độ chi tiết của tracer ảnh hưởng chỉ số này; không dùng steps để suy ra latency. Cost là mô phỏng, latency là `unavailable`. Benchmark public này không thay thế T11/T12 hoặc chấm hidden; đặc biệt C-011/C-012 trong benchmark chỉ chạy như trial độc lập, không tạo kịch bản retry/crash.
 
@@ -74,13 +74,21 @@ Steps là số event trong trace nên độ chi tiết của tracer ảnh hưở
 
 Khi tích hợp workflow, host suite đạt 56 passed và toàn bộ student suite đạt 283 passed. Ma trận mỗi shape có 62 test, gồm T11 retry và T12 crash/resume. Test bổ sung kiểm workflow không dùng model, handoff/trace của orchestrator, và 35 test CP4 của single cho approval, ticket injection và secret/PII.
 
+Sau khi thêm năm test ablation R2, lần kiểm tra hiện tại đạt host suite 61 passed và student suite 283 passed. `check_submission` chỉ còn một FAIL do hash chốt đang để trống theo yêu cầu, cùng cảnh báo có thay đổi chưa commit.
+
 Các report `src/reports/crash.json` và `src/reports/crash_ldlda.json` trên `main` ghi crash safety 20/20. Suite này kiểm host trực tiếp và một ca swarm; crash của ba shape được kiểm bằng T12. Kết quả public và các test bổ sung không thay thế phép chấm hidden hoặc chứng minh không có rò rỉ trên mọi đầu vào.
+
+### Hidden self-check và nghiên cứu R2
+
+[Hidden self-check](../../src/reports/hidden_selfcheck.json) đã chạy trên `main`: ba shape × 40 claim × năm seed = 600 trial. Mỗi shape có 200 trial, 0 runtime error, 0 lỗi contract trace và 0 `leak_suspect`; phân bố status giống nhau: 90 resolved, 95 denied, 5 needs_info, 10 escalated. Không có nhãn nên không tính pass rate, pass^5, cost/success hoặc approval bypass chính thức. Nhóm chỉ lưu report tổng hợp; dataset và ZIP nằm ngoài Git.
+
+[Research card R2](research_card.md) dùng taxonomy MAST để diễn giải lỗi T02 seed 55 thuộc kiểm chứng tác vụ. Ablation `swarm_order_only` giữ nguyên swarm và chỉ bỏ block ghi đè delay từ ticket; [report](../../src/reports/research_ablation.json) cho thấy 69/70 → 70/70, pass^5 0,928571 → 1, variance 0,000816 → 0, cost/success 49,57 → 48,72 VND. Ba model call/trial không đổi; một lượt recompute dư biến mất. Đây là kiểm chứng lỗi cài sẵn, không phải bằng chứng rằng đổi topology tự nó tạo chênh lệch. Variant là thí nghiệm research card, không phải shape nộp hay yêu cầu bonus.
 
 ### Phần cần hoàn tất trước khi nộp
 
-- Tích hợp code `main` và tài liệu `team_report` vào nhánh nộp; hiện JSON benchmark được sinh từ code `main`, còn code shape trên `team_report` vẫn là stub. Chạy lại benchmark khi thay đổi code sau tích hợp.
-- Chạy hidden self-check khi có `student_drop/`; report này là tùy chọn theo SUBMISSION, và chưa có kết quả hidden trong bằng chứng đang dùng.
-- Hoàn tất [decision_adr.md](decision_adr.md), [research_card.md](research_card.md), ghi run ID và commit chốt nhất quán. Chưa đưa ra lựa chọn kiến trúc cuối cùng trong bản thảo này.
+- Ghi commit chốt nhất quán vào ADR và tài liệu sau khi hoàn tất các thay đổi; hiện để trống theo yêu cầu.
+- Commit report và code thí nghiệm; kiểm lại trên Python 3.11–3.13 theo README.
+- Chạy lại `check_submission` sau khi điền hash; xác nhận quyền truy cập repo và từng thành viên nộp link LMS. Hidden chính thức phải chờ grader giảng viên.
 
 ## 5. Khó khăn và cách xử lý
 
@@ -94,18 +102,18 @@ Các report `src/reports/crash.json` và `src/reports/crash_ldlda.json` trên `m
 
 | Thành viên | Đóng góp có bằng chứng |
 | --- | --- |
-| Nguyễn Nam Khánh | Điều phối, rà soát và tích hợp commit/PR; hoàn tất benchmark public bốn shape (280 trial), đối chiếu số liệu và report single–swarm trước đó, tích hợp bảng so sánh và phân tích chi phí vào báo cáo nhóm. |
+| Nguyễn Nam Khánh | Điều phối, rà soát và tích hợp commit/PR; hoàn tất benchmark public bốn shape (280 trial), đối chiếu số liệu và report single–swarm trước đó, tích hợp bảng so sánh và phân tích chi phí; chạy hidden self-check, hoàn tất ADR/research card R2, thêm ablation và test năm seed với hỗ trợ Codex. |
 | Nguyễn Minh Quân | Workflow cố định, full quote và crash/retry, test không dùng model, ghi chú Windows và báo cáo cá nhân. |
 | Lương Đức Anh | Orchestrator, investigator chỉ đọc, handoff đã sanitize, test trace, bằng chứng crash suite và báo cáo cá nhân. |
 | Lê Anh Tuấn | Single, 35 test CP4, bằng chứng crash suite, benchmark single–swarm và báo cáo cá nhân. |
 
-Chi tiết commit, test và phần cá nhân nằm trong [TEAM.md](../../TEAM.md). Báo cáo cá nhân của ba thành viên đã có trên `main` theo mẫu `report/team/MSSV_HoTen.md`.
+Chi tiết commit, test và phần cá nhân nằm trong [TEAM.md](../../TEAM.md). Báo cáo cá nhân của cả bốn thành viên đã có trên `main` theo mẫu `report/team/MSSV_HoTen.md`.
 
 ## 7. Hạn chế và hướng cải thiện
 
 MockLLM không phải model sản xuất; cost là mô phỏng, latency là `unavailable`. Single và orchestrator hiện dùng điều khiển cố định bằng code, nên số liệu không đo đầy đủ tính tự chủ hay lỗi lập kế hoạch của LLM. Bộ public nhỏ, swarm có điểm yếu được cài sẵn; chưa đủ để kết luận kiến trúc nào tốt nhất ngoài bài lab.
 
-Cần chốt ADR dựa trên benchmark bốn shape đã có và bổ sung hidden self-check nếu được cung cấp `student_drop/`. Chưa có bằng chứng để xác nhận ngưỡng hidden ≥ 0,75. Nếu một kiến trúc có mức tự chủ cao hơn xử lý tốt hơn các claim cần điều tra thích ứng, đồng thời giữ approval/crash/leak an toàn và chi phí chấp nhận được, nhóm sẽ xem xét lại lựa chọn. Muốn đánh giá model thật cần một thí nghiệm riêng với kiểm soát prompt, tool, ngân sách và corpus phù hợp.
+ADR chọn workflow dựa trên benchmark public và các kiểm tra an toàn hiện có. Hidden self-check đã hoàn tất nhưng không có nhãn để xác nhận ngưỡng hidden ≥ 0,75. Nếu một kiến trúc có mức tự chủ cao hơn xử lý tốt hơn các claim cần điều tra thích ứng, đồng thời giữ approval/crash/leak an toàn và chi phí chấp nhận được, nhóm sẽ xem xét lại lựa chọn. Muốn đánh giá model thật cần một thí nghiệm riêng với kiểm soát prompt, tool, ngân sách và corpus phù hợp.
 
 ## 8. Tài liệu tham khảo
 
@@ -113,4 +121,4 @@ Cần chốt ADR dựa trên benchmark bốn shape đã có và bổ sung hidden
 - [Business rules](../../docs/business_rules.md), [output/trace contracts](../../docs/contracts.md).
 - [Architecture](../../docs/architecture.md), [định nghĩa metric](../../docs/metrics.md).
 - Code và test của ba shape tại commit `7f07b295b8a6dacc37f666aac2f1933a8dca6e57` trên `main`; [benchmark bốn shape](../../src/reports/benchmark.json). Benchmark single–swarm và hai crash report trong `src/reports/` trên `main` là bằng chứng bổ sung.
-- Báo cáo cá nhân: `2A202603747_NguyenMinhQuan.md`, `2A202603931_LuongDucAnh.md`, `2A202603792_LeAnhTuan.md` trên `main`.
+- Báo cáo cá nhân của cả bốn thành viên trong `report/team/`; [ADR](decision_adr.md), [research card R2](research_card.md), [hidden self-check](../../src/reports/hidden_selfcheck.json) và [ablation](../../src/reports/research_ablation.json).

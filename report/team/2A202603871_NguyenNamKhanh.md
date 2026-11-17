@@ -27,7 +27,9 @@ Bản thảo báo cáo nhóm bổ sung luồng của ba shape, ranh giới code/
 
 Tôi hoàn tất benchmark public cho `workflow`, `single`, `orchestrator`, `swarm` trên cùng 14 claim và năm seed `11,22,33,44,55` (280 trial). Benchmark chạy với hỗ trợ Codex trên bản trích xuất sạch của code `main`, commit `7f07b295b8a6dacc37f666aac2f1933a8dca6e57`, và sinh `src/reports/benchmark.json` trên nhánh `team_report`. Tôi đối chiếu số trial, số lần pass và cost/success với dữ liệu từng trial; xác nhận phần single–swarm khớp hoàn toàn với report trước của Tuấn.
 
-Tôi tích hợp bảng so sánh bốn shape, run ID lỗi và phân tích chi phí vào báo cáo nhóm. Workflow là ứng viên có chi phí thấp nhất trên bộ public: pass 70/70 như single và orchestrator, nhưng cost/success thấp hơn lần lượt khoảng 4,1% và 50,0%. ADR, research card, tích hợp nhánh nộp và commit chốt vẫn chưa hoàn tất. Phần benchmark mới và cập nhật tài liệu này chưa có commit riêng tại thời điểm ghi báo cáo.
+Tôi tích hợp bảng so sánh bốn shape, run ID lỗi và phân tích chi phí vào báo cáo nhóm. Workflow là ứng viên có chi phí thấp nhất trên bộ public: pass 70/70 như single và orchestrator, nhưng cost/success thấp hơn lần lượt khoảng 4,1% và 50,0%. Code và tài liệu đã tích hợp trên `main` tại `138163c`; benchmark đã commit tại `f265ae2`, báo cáo nhóm tại `6170f77`, báo cáo cá nhân tại `a62e7ff`. ADR chọn workflow và research card R2 đã hoàn tất; commit chốt để trống theo yêu cầu hiện tại.
+
+Tôi chạy hidden self-check (600 trial), tổng hợp kết quả và hoàn tất thí nghiệm R2: sao swarm sang variant chỉ bỏ ticket-delay override, đo lại 140 trial, thêm test đối chiếu T02 trên năm seed. Reference pass 69/70, variant pass 70/70; ba model call/trial không đổi. Test và thí nghiệm mới chờ commit.
 
 ## 4. Bằng chứng
 
@@ -40,6 +42,9 @@ Các lệnh kiểm tra đã được chạy với hỗ trợ Codex trong quá tr
 | Single matrix và test CP4, khi rà soát PR single | 97 passed |
 | Orchestrator matrix, khi rà soát PR orchestrator | 62 passed |
 | Crash suite chạy lại khi rà soát single | 20/20 |
+| Test ablation R2, mỗi seed một ca | 5 passed |
+| Host suite sau khi thêm test R2 | 61 passed |
+| Student suite kiểm lại sau khi thêm test R2 | 283 passed |
 
 Crash suite chủ yếu kiểm host và một ca swarm; T12 kiểm crash/resume của từng shape sinh viên. Các số test trên thuộc những lần tích hợp cụ thể.
 
@@ -58,11 +63,13 @@ python -m lab8.benchmark --shapes workflow,single,orchestrator,swarm --cases dat
 
 Trial fail duy nhất: `R-swarm-C-002-s55`. Ba shape nhóm viết đều pass C-002 tại seed 55. Các chỉ số variance, seed min–max, mean/p95 steps và so sánh được tổng hợp ở mục 4 báo cáo nhóm. Kết quả là benchmark public, chưa xác nhận ngưỡng hidden; latency là `unavailable`. Lần chạy dùng Python 3.14.4 trên Linux, cần kiểm lại trên Python 3.11–3.13 theo README.
 
-Tài liệu liên quan: [TEAM.md](../../TEAM.md), [báo cáo nhóm](group_report.md).
+Bằng chứng bổ sung: [hidden self-check](../../src/reports/hidden_selfcheck.json) ghi 200 trial/shape, không runtime error/trace error/leak_suspect; bộ không nhãn nên không xác nhận pass rate hoặc approval bypass chính thức. [Ablation R2](../../src/reports/research_ablation.json) ghi pass^5 tăng 0,928571 → 1, variance về 0, cost/success 49,57 → 48,72 VND. Test `python -m pytest -q tests/test_research_ablation.py` đạt 5 passed; test và variant được chuẩn bị với hỗ trợ Codex.
+
+Tài liệu liên quan: [TEAM.md](../../TEAM.md), [báo cáo nhóm](group_report.md), [ADR](decision_adr.md), [research card](research_card.md).
 
 ## 5. Công cụ AI đã dùng
 
-Sử dụng OpenAI Codex để giải thích checkpoint, đọc code và hợp đồng, rà soát commit/PR, chạy test, hỗ trợ xử lý merge conflict, chạy benchmark bốn shape và soạn tài liệu dựa trên bằng chứng. Codex hỗ trợ kiểm tra tính nhất quán của JSON, tổng hợp metric, cập nhật bảng đóng góp và báo cáo; không dùng model thật trong các shape.
+Sử dụng OpenAI Codex để giải thích checkpoint, đọc code và hợp đồng, rà soát commit/PR, chạy test, hỗ trợ xử lý merge conflict, chạy benchmark bốn shape, hidden self-check, chuẩn bị ablation/test R2 và soạn tài liệu dựa trên bằng chứng. Codex hỗ trợ kiểm tra tính nhất quán của JSON, tổng hợp metric, cập nhật bảng đóng góp và báo cáo; không dùng model thật trong các shape.
 
 Cách đối chiếu gồm đọc diff và tác giả commit, so sánh báo cáo trên main với nhánh team_report, kiểm tra kết quả test và số liệu JSON. Khi dùng `-k single`, tên test chung `single_run` khiến pytest chọn cả shape khác; bộ lọc được sửa để loại workflow, orchestrator và swarm trước khi ghi nhận kết quả 97 passed.
 

@@ -27,7 +27,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Nguyễn Nam Khánh | Điều phối, rà soát và tích hợp commit/PR, hoàn tất benchmark public bốn shape (CP5), tổng hợp kết quả và báo cáo nhóm | `6cf86b2`, `5891738`, `98c97b9`, `8bf483b`, `df06fb9`, `cb48259`, `8fc7cf1`, `e1a2dc1`; benchmark mới chưa commit | Chạy host/student suite và đối chiếu 280 trial benchmark; chưa thêm hoặc sửa test riêng |
+| Nguyễn Nam Khánh | Điều phối, rà soát và tích hợp commit/PR, hoàn tất benchmark public bốn shape (CP5), tổng hợp kết quả và báo cáo nhóm | `6cf86b2`, `5891738`, `98c97b9`, `8bf483b`, `df06fb9`, `cb48259`, `8fc7cf1`, `e1a2dc1`, `f265ae2`, `6170f77`, `a62e7ff`; ablation/test mới chờ commit | Thêm `src/tests/test_research_ablation.py::test_order_delay_ablation_repairs_t02_without_changing_model_calls` (5 seed, với hỗ trợ Codex); chạy host/student suite và benchmark |
 | Nguyễn Minh Quân | Workflow cố định, retry/crash, test và tài liệu đóng góp | `34900b4`, `c82846a`, `5a84fd0`, `3550b19` | Thêm `src/tests/test_workflow_student.py::test_workflow_is_deterministic_and_model_free` |
 | Lương Đức Anh | Orchestrator, handoff chỉ đọc, crash/retry và tài liệu đóng góp | `a2b887d`, `6b135cb`, `3baec28` | Thêm `src/tests/test_orchestrator_handoff.py::test_orchestrator_trace_contains_only_sanitized_handoff` |
 | Lê Anh Tuấn | Single agent, test CP4, crash evidence, benchmark single–swarm và báo cáo cá nhân | `a39e9bd`, `1b19db7`, `2fe76f3`, `2663961`, `caf46c7` | Thêm `src/tests/test_single_cp4.py` (approval, refund cap, injection, trace/stdout leak) |
@@ -56,14 +56,15 @@ Sao chép mục dưới đây cho từng thành viên.
 - Tích hợp workflow, xử lý xung đột TEAM.md bằng cách giữ bảng đóng góp tập trung trên `team_report`; cập nhật bản sửa thông tin liên hệ.
 - Tổng hợp đóng góp theo commit, bổ sung phần cá nhân và soạn báo cáo nhóm, giữ nội dung workflow do Nguyễn Minh Quân viết.
 - Chạy benchmark public đủ bốn shape trên 14 claim × 5 seed từ code `main` commit `7f07b29`, sinh `src/reports/benchmark.json`; đối chiếu metric với 280 trial và xác nhận single–swarm khớp report trước của Tuấn.
-- Tích hợp bảng kết quả, run ID lỗi và phân tích chi phí vào báo cáo nhóm; phần benchmark mới chưa có commit riêng.
+- Tích hợp bảng kết quả, run ID lỗi và phân tích chi phí vào báo cáo nhóm; benchmark đã commit tại `f265ae2`, báo cáo tại `6170f77`, báo cáo cá nhân tại `a62e7ff`.
 - Commit tài liệu: `6cf86b2`, `5891738`, `98c97b9`, `8bf483b`, `df06fb9`; commit tích hợp workflow: `cb48259`, `8fc7cf1`.
 
 ### Bằng chứng
 
 - Khi tích hợp đủ ba shape: host suite 56 passed, student suite 283 passed; kiểm riêng single 97 passed, orchestrator 62 passed và crash suite 20/20 ở các lần rà soát trước.
+- Hidden self-check: `src/reports/hidden_selfcheck.json`, 600 trial, không runtime error/trace error/leak_suspect; không có nhãn để tính pass rate. Hoàn tất ADR chọn workflow và research card R2; `src/reports/research_ablation.json` ghi swarm 69/70 → variant 70/70.
 - `src/reports/benchmark.json`: workflow, single, orchestrator đều pass 70/70; swarm 69/70. Cost/success mô phỏng lần lượt 27,86; 29,04; 55,71; 49,57 VND. Chi tiết tại mục 4 báo cáo nhóm và báo cáo cá nhân.
-- Chưa thêm hoặc sửa test riêng; bằng chứng kiểm tra đến từ các suite hiện có và test của thành viên.
+- Thêm test ablation R2 ở `src/tests/test_research_ablation.py` với hỗ trợ Codex: 5 seed pass; reference giữ lỗi seed 55, variant sửa đúng verdict/ledger và giữ ba model call/trial. Phần test mới chờ commit.
 - Báo cáo nhóm: `report/team/group_report.md`; báo cáo cá nhân: `report/team/2A202603871_NguyenNamKhanh.md`.
 
 ## 2A202603747_NguyenMinhQuan
@@ -120,5 +121,5 @@ Sao chép mục dưới đây cho từng thành viên.
 
 - `src/tests/test_single_cp4.py`: 35 test; cộng 62 test ma trận single thành 97 test pass (đã kiểm khi tích hợp).
 - `src/reports/benchmark_single_swarm.json` trên `main`: single pass 70/70, pass^5 = 1, cost/success mô phỏng 29,04 VND; swarm pass 69/70, cost/success 49,57 VND.
-- Benchmark hai shape là bằng chứng bổ sung cho CP5; quyết định kiến trúc của nhóm cần benchmark đủ bốn shape.
+- Benchmark hai shape là bằng chứng bổ sung cho CP5; benchmark bốn shape đã có trong `src/reports/benchmark.json`, ADR chọn workflow.
 - Báo cáo: `report/team/2A202603792_LeAnhTuan.md` trên `main`; run đối chiếu `R-single-C-002-s55` và `R-swarm-C-002-s55`.
