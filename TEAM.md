@@ -11,7 +11,7 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 | Nguyễn Minh Quân | 2A202603747 | 24022434@vnu.edu.vn | minhquannm0905-cloud | Workflow |
+|   1 | Nguyễn Minh Quân | 2A202603747 | 26ai.quannm8@vinuni.edu.vn | minhquannm0905-cloud | Workflow |
 |   2 |        |      |       |        |         |
 
 Gợi ý chia vai:
