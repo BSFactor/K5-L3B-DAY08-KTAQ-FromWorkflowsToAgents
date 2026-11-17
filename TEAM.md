@@ -14,7 +14,7 @@
 |   1 |    Nguyễn Nam Khánh    |  2A202603871    |    26ai.khanhnn3@vinuni.edu.vn   |    BSFactor    |         |
 |   2 |     Nguyễn Minh Quân   |  2A202603747    |   26ai.quannm8@vinuni.edu.vn    |   minhquannm0905-cloud     |         |
 |   3 |    Lương Đức Anh    |   2A202603931   |    26ai.anhld5@vinuni.edu.vn   |    ldlda    |         |
-|   4 |    Lê Anh Tuấn    |  2A202603792    |  26ai.tuanla3@vinuni.edu.vn     |   tuancdk     |         |
+|   4 |    Lê Anh Tuấn    |  2A202603792    |  26ai.tuanla3@vinuni.edu.vn     |   tuancdk     | Triển khai single agent |
 
 Gợi ý chia vai:
 
@@ -30,7 +30,7 @@ Gợi ý chia vai:
 | Nguyễn Nam Khánh  | | | |
 | Nguyễn Minh Quân  | | | |
 | Lương Đức Anh  | | | |
-| Lê Anh Tuấn  | | | |
+| Lê Anh Tuấn | Shape B: single ReAct agent, CP4 checks và crash evidence | `a39e9bd`, `1b19db7`, `2fe76f3` | Thêm `src/tests/test_single_cp4.py` (approval, refund cap, injection, trace/stdout leak) |
 
 ## Cá nhân
 
