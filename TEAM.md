@@ -25,7 +25,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| | | | |
+| Luong Duc Anh | Orchestrator + handoff | `a2b887d`, `6b135cb` | `test_orchestrator_handoff.py::test_orchestrator_trace_contains_only_sanitized_handoff` |
 
 ## Cá nhân
 
