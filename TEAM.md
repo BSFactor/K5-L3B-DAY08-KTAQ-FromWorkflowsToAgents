@@ -2,16 +2,16 @@
 
 ## Thông tin nhóm
 
-- Tên nhóm:
-- Lớp: L3A
-- Repo nhóm: `K5-L3A-DAY08-TenNhom-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt:
+- Tên nhóm:KTAQ
+- Lớp: L3B
+- Repo nhóm: K5-L3B-DAY08-KTAQ-FromWorkflowsToAgents
+- URL repo, nhánh nộp, commit chốt:https://github.com/BSFactor/K5-L3B-DAY08-KTAQ-FromWorkflowsToAgents, main
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |    Nguyễn Nam Khánh    |  2A202603871    |    26ai.khanhnn3@vinuni.edu.vn   |    BSFactor    |         |
+|   1 |    Nguyễn Nam Khánh    |  2A202603871    |    26ai.khanhnn3@vinuni.edu.vn   |    BSFactor    | Điều phối công việc, rà soát và tích hợp commit/PR, tổng hợp bằng chứng và tài liệu nhóm |
 |   2 |     Nguyễn Minh Quân   |  2A202603747    |   26ai.quannm8@vinuni.edu.vn    |   minhquannm0905-cloud     |    Triển khai workflow, xử lý retry/crash, test tính xác định và báo cáo cá nhân |
 |   3 |    Lương Đức Anh    |   2A202603931   |    26ai.anhld5@vinuni.edu.vn   |    ldlda    | Triển khai orchestrator, handoff chỉ đọc, xử lý retry/crash và test trace |
 |   4 |    Lê Anh Tuấn    |  2A202603792    |  26ai.tuanla3@vinuni.edu.vn     |   tuancdk     | Triển khai single agent, test CP4, benchmark single–swarm (CP5) và báo cáo cá nhân |
@@ -27,7 +27,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Nguyễn Nam Khánh  | | | |
+| Nguyễn Nam Khánh | Điều phối nhóm, rà soát và tích hợp commit/PR, tổng hợp đóng góp và báo cáo nhóm | `6cf86b2`, `5891738`, `98c97b9`, `8bf483b`, `df06fb9`, `cb48259`, `8fc7cf1` | Chạy kiểm tra tích hợp host và student suite |
 | Nguyễn Minh Quân | Workflow cố định, retry/crash, test và tài liệu đóng góp | `34900b4`, `c82846a`, `5a84fd0`, `3550b19` | Thêm `src/tests/test_workflow_student.py::test_workflow_is_deterministic_and_model_free` |
 | Lương Đức Anh | Orchestrator, handoff chỉ đọc, crash/retry và tài liệu đóng góp | `a2b887d`, `6b135cb`, `3baec28` | Thêm `src/tests/test_orchestrator_handoff.py::test_orchestrator_trace_contains_only_sanitized_handoff` |
 | Lê Anh Tuấn | Single agent, test CP4, crash evidence, benchmark single–swarm và báo cáo cá nhân | `a39e9bd`, `1b19db7`, `2fe76f3`, `2663961`, `caf46c7` | Thêm `src/tests/test_single_cp4.py` (approval, refund cap, injection, trace/stdout leak) |
@@ -48,15 +48,20 @@ Sao chép mục dưới đây cho từng thành viên.
 
 ### Phần việc phụ trách
 
--
+- Điều phối công việc, rà soát và tích hợp commit/PR; tổng hợp bằng chứng, đóng góp và tài liệu nhóm.
 
 ### Đóng góp cụ thể
 
--
+- Rà soát triển khai single, orchestrator và workflow; chạy host/student suite khi tích hợp và phân biệt phạm vi crash suite với T12 của từng shape.
+- Tích hợp workflow, xử lý xung đột TEAM.md bằng cách giữ bảng đóng góp tập trung trên `team_report`; cập nhật bản sửa thông tin liên hệ.
+- Tổng hợp đóng góp theo commit, bổ sung phần cá nhân và soạn báo cáo nhóm, giữ nội dung workflow do Nguyễn Minh Quân viết.
+- Commit tài liệu: `6cf86b2`, `5891738`, `98c97b9`, `8bf483b`, `df06fb9`; commit tích hợp workflow: `cb48259`, `8fc7cf1`.
 
 ### Bằng chứng
 
--
+- Khi tích hợp đủ ba shape: host suite 56 passed, student suite 283 passed; kiểm riêng single 97 passed, orchestrator 62 passed và crash suite 20/20 ở các lần rà soát trước.
+- Chưa thêm hoặc sửa test riêng; bằng chứng kiểm tra đến từ các suite hiện có và test của thành viên.
+- Báo cáo nhóm: `report/team/group_report.md`; báo cáo cá nhân: `report/team/2A202603871_NguyenNamKhanh.md`.
 
 ## 2A202603747_NguyenMinhQuan
 
