@@ -5,7 +5,7 @@
 - Tên nhóm:KTAQ
 - Lớp: L3B
 - Repo nhóm: K5-L3B-DAY08-KTAQ-FromWorkflowsToAgents
-- URL repo, nhánh nộp, commit chốt:https://github.com/BSFactor/K5-L3B-DAY08-KTAQ-FromWorkflowsToAgents, main
+- URL repo, nhánh nộp, commit chốt:https://github.com/BSFactor/K5-L3B-DAY08-KTAQ-FromWorkflowsToAgents, main, `3d59741781aa544732525f3ec6d69afbb82d5da4`
 
 ## Thành viên
 
@@ -27,7 +27,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| Nguyễn Nam Khánh | Điều phối, rà soát và tích hợp commit/PR, hoàn tất benchmark public bốn shape (CP5), tổng hợp kết quả và báo cáo nhóm | `6cf86b2`, `5891738`, `98c97b9`, `8bf483b`, `df06fb9`, `cb48259`, `8fc7cf1`, `e1a2dc1`, `f265ae2`, `6170f77`, `a62e7ff`; ablation/test mới chờ commit | Thêm `src/tests/test_research_ablation.py::test_order_delay_ablation_repairs_t02_without_changing_model_calls` (5 seed, với hỗ trợ Codex); chạy host/student suite và benchmark |
+| Nguyễn Nam Khánh | Điều phối, rà soát và tích hợp commit/PR, hoàn tất benchmark public bốn shape (CP5), tổng hợp kết quả và báo cáo nhóm | `6cf86b2`, `5891738`, `98c97b9`, `8bf483b`, `df06fb9`, `cb48259`, `8fc7cf1`, `e1a2dc1`, `f265ae2`, `6170f77`, `a62e7ff`, `3d59741` | Thêm `src/tests/test_research_ablation.py::test_order_delay_ablation_repairs_t02_without_changing_model_calls` (5 seed, với hỗ trợ Codex); chạy host/student suite và benchmark |
 | Nguyễn Minh Quân | Workflow cố định, retry/crash, test và tài liệu đóng góp | `34900b4`, `c82846a`, `5a84fd0`, `3550b19` | Thêm `src/tests/test_workflow_student.py::test_workflow_is_deterministic_and_model_free` |
 | Lương Đức Anh | Orchestrator, handoff chỉ đọc, crash/retry và tài liệu đóng góp | `a2b887d`, `6b135cb`, `3baec28` | Thêm `src/tests/test_orchestrator_handoff.py::test_orchestrator_trace_contains_only_sanitized_handoff` |
 | Lê Anh Tuấn | Single agent, test CP4, crash evidence, benchmark single–swarm và báo cáo cá nhân | `a39e9bd`, `1b19db7`, `2fe76f3`, `2663961`, `caf46c7` | Thêm `src/tests/test_single_cp4.py` (approval, refund cap, injection, trace/stdout leak) |
@@ -64,7 +64,7 @@ Sao chép mục dưới đây cho từng thành viên.
 - Khi tích hợp đủ ba shape: host suite 56 passed, student suite 283 passed; kiểm riêng single 97 passed, orchestrator 62 passed và crash suite 20/20 ở các lần rà soát trước.
 - Hidden self-check: `src/reports/hidden_selfcheck.json`, 600 trial, không runtime error/trace error/leak_suspect; không có nhãn để tính pass rate. Hoàn tất ADR chọn workflow và research card R2; `src/reports/research_ablation.json` ghi swarm 69/70 → variant 70/70.
 - `src/reports/benchmark.json`: workflow, single, orchestrator đều pass 70/70; swarm 69/70. Cost/success mô phỏng lần lượt 27,86; 29,04; 55,71; 49,57 VND. Chi tiết tại mục 4 báo cáo nhóm và báo cáo cá nhân.
-- Thêm test ablation R2 ở `src/tests/test_research_ablation.py` với hỗ trợ Codex: 5 seed pass; reference giữ lỗi seed 55, variant sửa đúng verdict/ledger và giữ ba model call/trial. Phần test mới chờ commit.
+- Thêm test ablation R2 ở `src/tests/test_research_ablation.py` với hỗ trợ Codex: 5 seed pass; reference giữ lỗi seed 55, variant sửa đúng verdict/ledger và giữ ba model call/trial. Test và thí nghiệm đã commit tại `3d59741`.
 - Báo cáo nhóm: `report/team/group_report.md`; báo cáo cá nhân: `report/team/2A202603871_NguyenNamKhanh.md`.
 
 ## 2A202603747_NguyenMinhQuan

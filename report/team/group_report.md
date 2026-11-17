@@ -4,13 +4,13 @@
 
 - Tên nhóm: KTAQ
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): chưa chốt theo yêu cầu hiện tại; bổ sung trước khi nộp. Commit code dùng cho benchmark: `7f07b295b8a6dacc37f666aac2f1933a8dca6e57` trên `main`.
+- Commit chốt (trùng `report/team/decision_adr.md`): `3d59741781aa544732525f3ec6d69afbb82d5da4`. Commit code dùng cho benchmark: `7f07b295b8a6dacc37f666aac2f1933a8dca6e57` trên `main`.
 
 ## 2. Mục tiêu và cách tiếp cận
 
 Nhóm xử lý claim hoàn phí của LogiX-VN bằng bốn kiến trúc để tìm mức tự chủ thấp nhất vẫn đáp ứng nghiệp vụ và các điều kiện an toàn. Dữ liệu ticket là đầu vào không đáng tin cậy; order và policy hiện hành là nguồn quyết định entitlement. Tiền do code tính, approval và quyền ghi ledger do host kiểm soát.
 
-Thiết kế so sánh giữ cùng corpus, seed, MockLLM, bảng giá và evaluator. Benchmark dùng SQLite mới cho mỗi trial; riêng kiểm tra retry/crash dùng lại cùng database để phát hiện refund trùng. Code và tài liệu đã tích hợp trên `main` tại `138163c`; benchmark đủ bốn shape tái lập khớp JSON đã lưu. ADR chọn workflow; research card R2 và ablation đã hoàn tất. Hidden self-check cũng đã chạy, còn commit chốt và điểm hidden chính thức chưa có.
+Thiết kế so sánh giữ cùng corpus, seed, MockLLM, bảng giá và evaluator. Benchmark dùng SQLite mới cho mỗi trial; riêng kiểm tra retry/crash dùng lại cùng database để phát hiện refund trùng. Code và tài liệu đã tích hợp trên `main` tại `138163c`; benchmark đủ bốn shape tái lập khớp JSON đã lưu. ADR chọn workflow; research card R2 và ablation đã hoàn tất. Hidden self-check đã chạy; code và bằng chứng chốt tại `3d59741`. Điểm hidden chính thức vẫn chờ giảng viên.
 
 ## 3. Giải pháp
 
@@ -74,7 +74,7 @@ Steps là số event trong trace nên độ chi tiết của tracer ảnh hưở
 
 Khi tích hợp workflow, host suite đạt 56 passed và toàn bộ student suite đạt 283 passed. Ma trận mỗi shape có 62 test, gồm T11 retry và T12 crash/resume. Test bổ sung kiểm workflow không dùng model, handoff/trace của orchestrator, và 35 test CP4 của single cho approval, ticket injection và secret/PII.
 
-Sau khi thêm năm test ablation R2, lần kiểm tra hiện tại đạt host suite 61 passed và student suite 283 passed. `check_submission` chỉ còn một FAIL do hash chốt đang để trống theo yêu cầu, cùng cảnh báo có thay đổi chưa commit.
+Sau khi thêm năm test ablation R2, lần kiểm tra hiện tại đạt host suite 61 passed và student suite 283 passed. `check_submission` sau khi điền hash đạt 0 FAIL; cảnh báo Git còn thay đổi tài liệu hoặc file chưa được theo dõi là trạng thái trước commit cập nhật hash.
 
 Các report `src/reports/crash.json` và `src/reports/crash_ldlda.json` trên `main` ghi crash safety 20/20. Suite này kiểm host trực tiếp và một ca swarm; crash của ba shape được kiểm bằng T12. Kết quả public và các test bổ sung không thay thế phép chấm hidden hoặc chứng minh không có rò rỉ trên mọi đầu vào.
 
@@ -86,9 +86,9 @@ Các report `src/reports/crash.json` và `src/reports/crash_ldlda.json` trên `m
 
 ### Phần cần hoàn tất trước khi nộp
 
-- Ghi commit chốt nhất quán vào ADR và tài liệu sau khi hoàn tất các thay đổi; hiện để trống theo yêu cầu.
-- Commit report và code thí nghiệm; kiểm lại trên Python 3.11–3.13 theo README.
-- Chạy lại `check_submission` sau khi điền hash; xác nhận quyền truy cập repo và từng thành viên nộp link LMS. Hidden chính thức phải chờ grader giảng viên.
+- Code, report và thí nghiệm đã commit tại `3d59741`; commit tiếp bản cập nhật hash trong tài liệu và push nhánh nộp. Không thêm `student_drop.zip` vào commit.
+- Kiểm lại trên Python 3.11–3.13 theo README.
+- Xác nhận quyền truy cập repo và từng thành viên nộp link LMS. Hidden chính thức phải chờ grader giảng viên.
 
 ## 5. Khó khăn và cách xử lý
 

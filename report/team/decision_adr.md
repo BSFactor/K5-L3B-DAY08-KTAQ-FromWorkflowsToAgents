@@ -4,14 +4,14 @@
 `Shape chọn` phải là đúng một trong: `workflow`, `single`, `orchestrator`, `swarm`. Đây là shape được chấm cổng hidden.
 
 - Shape chọn: workflow
-- Commit hash:
+- Commit hash: 3d59741781aa544732525f3ec6d69afbb82d5da4
 - Run id dẫn chứng: R-workflow-C-001-s11; R-workflow-C-002-s55; đối chứng R-swarm-C-002-s55 (src/reports/benchmark.json)
 - Pass rate / pass^5 / seed min-max / variance: public 1.000000 / 1.000000 / 1.000000–1.000000 / 0; 70/70 trial, 14 claim × seed 11,22,33,44,55; hidden chính thức chưa có nhãn để tính
 - Cost per success (mô phỏng, VND): 27.8571428571, từ src/reports/benchmark.json; tổng cost public 1950 VND
 - Crash safety: 20/20 (src/reports/crash.json, host/swarm); T11/T12 của workflow pass trong student suite
 - Secret leak / approval bypass: public workflow 70/70 trial pass evaluator gồm kiểm secret/PII và approval; không ghi nhận vi phạm trên các ca đã kiểm. Hidden self-check workflow: 0 leak_suspect/200 trial, 0 runtime error, trace hợp lệ; bộ không nhãn không xác nhận approval_bypass_count hoặc secret_leak_count chính thức
 
-Commit chốt để trống theo yêu cầu hiện tại; cần bổ sung trước khi nộp. Benchmark public được sinh từ code commit `7f07b295b8a6dacc37f666aac2f1933a8dca6e57`; code đã tích hợp trên `main` tại `138163c`, và lần chạy lại trên code tích hợp khớp hoàn toàn JSON đã lưu. Đây là nguồn bằng chứng, chưa phải hash chốt bài nộp.
+Commit chốt code và bằng chứng: `3d59741781aa544732525f3ec6d69afbb82d5da4` trên `main`. Lần cập nhật hash trong tài liệu là bước tiếp theo theo SUBMISSION; hash trên xác định snapshot dùng để chấm. Benchmark public được sinh từ code commit `7f07b295b8a6dacc37f666aac2f1933a8dca6e57`; code đã tích hợp trên `main` tại `138163c`, và lần chạy lại trên code tích hợp khớp hoàn toàn JSON đã lưu. Các hash nguồn này được giữ để truy vết lịch sử tạo bằng chứng.
 
 ## Vì sao shape này
 

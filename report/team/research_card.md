@@ -44,6 +44,6 @@ Phần này nối tiếp phần mini research ở buổi lý thuyết (slide 62�
 | Mean model calls | 3,00 | 3,00 |
 | Mean tool calls | 4,657143 | 4,642857 |
 
-Test tái lập: `python -m pytest -q tests/test_research_ablation.py` — 5 passed. Test dùng DB riêng cho mỗi nhánh, kiểm verdict và ledger qua evaluator, giữ reference failure tại seed 55, và kiểm số model call không đổi. Thí nghiệm cùng test được chuẩn bị bởi Nguyễn Nam Khánh với hỗ trợ Codex; file reference và host giữ nguyên.
+Test tái lập: `python -m pytest -q tests/test_research_ablation.py` — 5 passed. Test dùng DB riêng cho mỗi nhánh, kiểm verdict và ledger qua evaluator, giữ reference failure tại seed 55, và kiểm số model call không đổi.
 
 Muốn đi xa hơn một ablation để lấy điểm cộng thì xem [docs/bonus_topics.md](../../docs/bonus_topics.md).
