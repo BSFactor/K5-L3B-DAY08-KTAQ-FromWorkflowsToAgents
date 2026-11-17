@@ -4,7 +4,7 @@
 
 - Tên nhóm: KTAQ
 - Thành viên: xem `TEAM.md`
-- Commit chốt (trùng `report/team/decision_adr.md`): `3d59741781aa544732525f3ec6d69afbb82d5da4`. Commit code dùng cho benchmark: `7f07b295b8a6dacc37f666aac2f1933a8dca6e57` trên `main`.
+- Commit chốt (trùng `report/team/decision_adr.md`): `0382699ff2f3aeefb832fc5c53b6340703dcee97`. Commit code dùng cho benchmark: `7f07b295b8a6dacc37f666aac2f1933a8dca6e57` trên `main`.
 
 ## 2. Mục tiêu và cách tiếp cận
 
