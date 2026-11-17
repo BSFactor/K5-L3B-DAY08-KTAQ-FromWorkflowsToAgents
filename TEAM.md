@@ -11,8 +11,10 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
+|   1 |    Nguyễn Nam Khánh    |  2A202603871    |    26ai.khanhnn3@vinuni.edu.vn   |    BSFactor    |         |
+|   2 |     Nguyễn Minh Quân   |  2A202603747    |   26ai.quannm8@vinuni.edu.vn    |   minhquannm0905-cloud     |         |
+|   3 |    Lương Đức Anh    |   2A202603931   |    26ai.anhld5@vinuni.edu.vn   |    ldlda    |         |
+|   4 |    Lê Anh Tuấn    |  2A202603792    |  26ai.tuanla3@vinuni.edu.vn     |   tuancdk     |         |
 
 Gợi ý chia vai:
 
@@ -25,7 +27,10 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
-| | | | |
+| Nguyễn Nam Khánh  | | | |
+| Nguyễn Minh Quân  | | | |
+| Lương Đức Anh  | | | |
+| Lê Anh Tuấn  | | | |
 
 ## Cá nhân
 
@@ -39,7 +44,49 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 
 Sao chép mục dưới đây cho từng thành viên.
 
-## MSSV_HoTen
+## 2A202603871_NguyenNamKhanh
+
+### Phần việc phụ trách
+
+-
+
+### Đóng góp cụ thể
+
+-
+
+### Bằng chứng
+
+-
+
+## 2A202603747_NguyenMinhQuan
+
+### Phần việc phụ trách
+
+-
+
+### Đóng góp cụ thể
+
+-
+
+### Bằng chứng
+
+-
+
+## 2A202603931_LuongDucAnh
+
+### Phần việc phụ trách
+
+-
+
+### Đóng góp cụ thể
+
+-
+
+### Bằng chứng
+
+-
+
+## 2A202603792_LeAnhTuan
 
 ### Phần việc phụ trách
 
