@@ -4,7 +4,7 @@
 
 - Họ tên: Nguyễn Minh Quân
 - MSSV: 2A202603747
-- Email: 24022434@vnu.edu.vn
+- Email: minhquannm0905@gmail.com
 - GitHub: `minhquannm0905-cloud`
 
 ## 2. Phần việc phụ trách
