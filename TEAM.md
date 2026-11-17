@@ -28,7 +28,7 @@ Gợi ý chia vai:
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
 | Nguyễn Nam Khánh  | | | |
-| Nguyễn Minh Quân  | | | |
+| Nguyễn Minh Quân | Deterministic workflow | `34900b4` | `test_workflow_is_deterministic_and_model_free` |
 | Lương Đức Anh | Orchestrator, handoff chỉ đọc, crash/retry và tài liệu đóng góp | `a2b887d`, `6b135cb`, `3baec28` | Thêm `src/tests/test_orchestrator_handoff.py::test_orchestrator_trace_contains_only_sanitized_handoff` |
 | Lê Anh Tuấn | Shape B: single ReAct agent, CP4 checks và crash evidence | `a39e9bd`, `1b19db7`, `2fe76f3` | Thêm `src/tests/test_single_cp4.py` (approval, refund cap, injection, trace/stdout leak) |
 
